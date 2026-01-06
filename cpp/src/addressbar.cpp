@@ -312,19 +312,19 @@ void AddressBar::navigateTo(const QString &url)
 
     // 检查是否为本地地址或私有IP地址
     if (isLocalOrPrivateAddress(url)) {
-        navigateRequested.emit(url);
+        emit navigateRequested(url);
         hideSuggestions();
         return;
     }
 
     // 检查是否是有效的URL或域名
     if (isValidUrl(url) || isLikelyDomain(url)) {
-        navigateRequested.emit(url);
+        emit navigateRequested(url);
     } else {
         // 否则进行搜索
         QString searchUrl = QString("https://www.bing.com/search?q=%1")
             .arg(QString::fromUtf8(QUrl::toPercentEncoding(url)));
-        searchRequested.emit(url);
+        emit searchRequested(url);
         navigateRequested.emit(searchUrl);
     }
     hideSuggestions();

@@ -8,7 +8,7 @@
 #include <QHostAddress>
 #include <QMessageBox>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QMetaObject>
 #include <QtConcurrent>
 
@@ -62,7 +62,8 @@ void MainWindow::initializeUI()
     resize(1200, 800);
 
     // 居中显示窗口
-    QRect screenGeometry = QApplication::desktop()->screenGeometry();
+    QScreen *screen = QApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
     int x = (screenGeometry.width() - width()) / 2;
     int y = (screenGeometry.height() - height()) / 2;
     move(x, y);
