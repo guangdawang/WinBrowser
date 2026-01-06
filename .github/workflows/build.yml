@@ -26,10 +26,23 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install Qt
+        shell: bash
         run: |
           pip3 install aqtinstall==3.1.16
-          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt
-          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O "${GITHUB_WORKSPACE}/Qt"
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O "${GITHUB_WORKSPACE}/Qt" --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
+
+      - name: Check Qt installation
+        shell: bash
+        run: |
+          echo "Checking Qt installation path..."
+          ls -la "${GITHUB_WORKSPACE}/Qt/"
+          echo "Checking Qt 6.5.3 directory..."
+          ls -la "${GITHUB_WORKSPACE}/Qt/6.5.3/"
+          echo "Checking msvc2019_64 directory..."
+          ls -la "${GITHUB_WORKSPACE}/Qt/6.5.3/msvc2019_64/"
+          echo "Checking bin directory..."
+          ls -la "${GITHUB_WORKSPACE}/Qt/6.5.3/msvc2019_64/bin/"
 
       - name: Configure CMake
         shell: bash
