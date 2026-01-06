@@ -63,6 +63,14 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
+      - name: Deploy Qt Dependencies (windeployqt)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $qtdir = "${{ github.workspace }}/Qt/6.5.3/msvc2019_64"
+          $exedir = "${{ github.workspace }}/build/Release"
+          & "$qtdir/bin/windeployqt.exe" --release --no-translations "$exedir/WinBrowserQt.exe"
+
       - name: Package artifacts (Windows)
         if: runner.os == 'Windows'
         run: |
