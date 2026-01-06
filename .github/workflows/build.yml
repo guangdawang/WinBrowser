@@ -13,12 +13,9 @@ jobs:
   build:
     strategy:
       matrix:
-        # 暂时去掉 macos-latest，只保留这两个稳定的平台
-        os: [ubuntu-latest, windows-latest]
+        # 只保留 Windows 平台
+        os: [windows-latest]
         include:
-          - os: ubuntu-latest
-            build-cmd: make -j$(nproc)
-            artifact-name: WinBrowserQt-Linux
           - os: windows-latest
             build-cmd: cmake --build . --config Release
             artifact-name: WinBrowserQt-Windows
