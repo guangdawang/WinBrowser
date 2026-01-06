@@ -13,7 +13,8 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # 暂时去掉 macos-latest，只保留这两个稳定的平台
+        os: [ubuntu-latest, windows-latest]
         include:
           - os: ubuntu-latest
             build-cmd: make -j$(nproc)
@@ -21,9 +22,6 @@ jobs:
           - os: windows-latest
             build-cmd: cmake --build . --config Release
             artifact-name: WinBrowserQt-Windows
-          - os: macos-latest
-            build-cmd: make -j$(sysctl -n hw.ncpu)
-            artifact-name: WinBrowserQt-macOS
     runs-on: ${{ matrix.os }}
 
     steps:
