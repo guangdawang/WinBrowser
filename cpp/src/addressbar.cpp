@@ -7,7 +7,8 @@
 #include <QHostAddress>
 #include <QNetworkInterface>
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
+#include <QGuiApplication>
 #include <QUuid>
 
 namespace WinBrowserQt {

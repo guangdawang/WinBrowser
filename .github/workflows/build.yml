@@ -27,14 +27,12 @@ jobs:
 
       - name: Install Qt
         run: |
-          # 1. 安装 aqt 安装器
           pip3 install aqtinstall==3.1.16
 
-          # 2. 手动安装 Qt 6.5.3 MSVC2019 64位 基础包
-          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O D:\a\WinBrowser\Qt
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt
 
-          # 3. 手动补全所有缺失的依赖模块（把 WebChannel、WebEngine 等一个一个装上去）
-          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O D:\a\WinBrowser\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
+          # 补上 qtconcurrent
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats qtconcurrent
 
       - name: Set up Qt Environment
         uses: jurplel/install-qt-action@v4

@@ -87,8 +87,8 @@ BrowserTab* BrowserTabWidget::createNewTab(const QString &url, const QString &ti
 
     // 优化页面设置
     QWebEngineSettings *settings = page->settings();
-    settings->setAttribute(QWebEngineSettings::DnsPrefetchEnabled, true);
-    settings->setAttribute(QWebEngineSettings::XSSAuditingEnabled, false); // 关闭审计，提速
+    // 注意：DnsPrefetchEnabled 和 XSSAuditingEnabled 在 Qt6 中已被移除
+    // 这些功能现在由 Chromium 引擎自动管理
 
     browserTab->setWebView(webView);
 
