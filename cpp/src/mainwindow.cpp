@@ -2,9 +2,11 @@
 #include "mainwindow.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QMenuBar>
 #include <QWebEngineView>
 #include <QWebEnginePage>
 #include <QWebEngineSettings>
+#include <QWebEngineHistory>
 #include <QHostAddress>
 #include <QMessageBox>
 #include <QApplication>

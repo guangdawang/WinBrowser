@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
     }
 
     // 创建主窗口
-    MainWindow mainWindow;
+    WinBrowserQt::MainWindow mainWindow;
     mainWindow.show();
 
     // 如果指定了URL，打开它

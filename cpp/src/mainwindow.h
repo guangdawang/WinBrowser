@@ -28,6 +28,9 @@ private slots:
     void onTabClosed(BrowserTab *tab);
     void onTabChanged(BrowserTab *tab);
     void onHistoryChanged(const HistoryChangedEventArgs &args);
+    void onDataSaved();
+    void onSaveError(const QString &message);
+    void loadDataLazy();
 
     void onBackClicked();
     void onForwardClicked();
@@ -86,6 +89,10 @@ private:
 
     // 当前标签页
     BrowserTab *m_currentTab;
+
+    // 数据
+    QList<Bookmark> m_bookmarks;
+    QList<HistoryItem> m_history;
 };
 
 } // namespace WinBrowserQt
