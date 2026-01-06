@@ -1,5 +1,5 @@
 
-#include "models/historyitem.h"
+#include "historyitem.h"
 #include <QUuid>
 
 namespace WinBrowserQt {

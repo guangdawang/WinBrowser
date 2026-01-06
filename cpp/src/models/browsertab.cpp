@@ -1,5 +1,5 @@
 
-#include "models/browsertab.h"
+#include "browsertab.h"
 #include <QUuid>
 
 namespace WinBrowserQt {

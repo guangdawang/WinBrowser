@@ -19,7 +19,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 # 查找Qt6组件
-find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets WebEngineWidgets WebEngineCore WebChannel Network)
+find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets WebEngineWidgets WebEngineCore WebChannel Network Concurrent)
 
 # 源文件
 set(SOURCES
@@ -59,6 +59,7 @@ target_link_libraries(${PROJECT_NAME}
     Qt6::WebEngineWidgets
     Qt6::WebEngineCore
     Qt6::Network
+    Qt6::Concurrent
 )
 
 # Windows特定设置

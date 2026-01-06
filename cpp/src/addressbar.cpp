@@ -218,8 +218,7 @@ void AddressBar::updateSuggestionsList()
     int maxSuggestions = qMin(8, m_suggestions.size());
     for (int i = 0; i < maxSuggestions; ++i) {
         const auto &suggestion = m_suggestions[i];
-        QString displayText = QString("%1
-%2")
+        QString displayText = QString("%1\n%2")
             .arg(suggestion.title)
             .arg(suggestion.url);
         m_suggestionsList->addItem(displayText);
@@ -250,8 +249,7 @@ void AddressBar::showSuggestions()
             break;
         }
 
-        QString itemText = QString("%1 %2
-%3")
+        QString itemText = QString("%1 %2\n%3")
             .arg(iconText)
             .arg(suggestion.title)
             .arg(suggestion.url);
