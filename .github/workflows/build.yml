@@ -25,17 +25,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Qt
+      - name: Install Qt
+        run: |
+          # 1. 安装 aqt 安装器
+          pip3 install aqtinstall==3.1.16
+
+          # 2. 手动安装 Qt 6.5.3 MSVC2019 64位 基础包
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O D:\a\WinBrowser\Qt
+
+          # 3. 手动补全所有缺失的依赖模块（把 WebChannel、WebEngine 等一个一个装上去）
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O D:\a\WinBrowser\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
+
+      - name: Set up Qt Environment
         uses: jurplel/install-qt-action@v4
         with:
+          # 这里不需要安装，只需要用它来设置环境变量（PATH, Qt6_DIR 等）
           version: "6.5.3"
           host: "windows"
           target: "desktop"
           arch: "win64_msvc2019_64"
-          # 修改：只列出主模块，去掉 core/widgets/sql 这些子模块或内置模块
-          modules: "qtwebengine qtpositioning qt5compat qtimageformats"
-          cache: true
+          # 重要：设置为 packaged，这样它会跳过下载，直接用我们刚才手动装好的 Qt
           setup-python: false
+          cache: false
+          # 这里不写 modules，因为手动安装已经装好了
 
       - name: Install CMake
         uses: jwlawson/actions-setup-cmake@v2
