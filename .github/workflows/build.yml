@@ -31,11 +31,17 @@ jobs:
       - name: Set up Qt
         uses: jurplel/install-qt-action@v4
         with:
-          version: "6.5.3" # 使用稳定的 Qt 6.5.x 版本
-          modules: "qtwebengine qtwebchannel qtnetworkauth"
-          host: "linux"
+          version: "6.5.3"
+          # 关键点1: 必须指定 aqt 源，否则有些模块找不到
+          host: "windows"
           target: "desktop"
-          cache: true # 加速后续构建
+          # 关键点2: 强制使用 MSVC2019_64，匹配 GitHub Actions 的编译器环境
+          arch: "win64_msvc2019_64"
+          # 关键点3: 把报错里缺的依赖全部补上，加上 qt5compat 防止其他兼容性报错
+          modules: "qtwebengine qtpositioning qtwebenginecore qtwebenginewidgets qt5compat qtsql qtimageformats"
+          cache: true
+          # 不要自动设置 python，避免环境冲突
+          setup-python: false
 
       - name: Install CMake
         uses: jwlawson/actions-setup-cmake@v2
