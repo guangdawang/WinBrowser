@@ -31,14 +31,13 @@ jobs:
           aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt
           aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
 
-      - name: Create build directory
-        run: mkdir build
-        shell: cmd
-
       - name: Configure CMake
-        run: cmake .. -DCMAKE_PREFIX_PATH="%GITHUB_WORKSPACE%\Qt\6.5.3\msvc2019_64"
+        run: |
+          mkdir build
+          copy CMakeLists.txt build\
+          cd build
+          cmake . -DCMAKE_PREFIX_PATH="%GITHUB_WORKSPACE%\Qt\6.5.3\msvc2019_64"
         shell: cmd
-        working-directory: ./build
 
       - name: Build
         run: cmake --build build --config Release
