@@ -186,7 +186,7 @@ void AddressBar::generateSuggestions(const QString &input)
     if (input.length() > 2) {
         SuggestionItem searchSuggestion;
         searchSuggestion.type = SuggestionType::Search;
-        searchSuggestion.title = QString("搜索 "%1"").arg(input);
+        searchSuggestion.title = QString("搜索 \"%1\"").arg(input);
         searchSuggestion.url = QString("https://www.bing.com/search?q=%1")
             .arg(QString::fromUtf8(QUrl::toPercentEncoding(input)));
         m_suggestions.append(searchSuggestion);

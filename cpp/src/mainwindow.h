@@ -21,6 +21,8 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void navigateToUrl(const QString &url);
+
 private slots:
     void onNavigateRequested(const QString &url);
     void onSearchRequested(const QString &searchTerm);
@@ -44,7 +46,7 @@ private slots:
     void onUrlChanged(const QUrl &url);
     void onIconChanged(const QIcon &icon);
     void onLoadProgress(int progress);
-    void onNewWindowRequested(QWebEnginePage *page);
+    void onNewWindowRequested(QWebEngineNewWindowRequest &request);
 
 private:
     void initializeUI();
@@ -55,7 +57,6 @@ private:
     void createStatusBar();
     void createMenus();
 
-    void navigateToUrl(const QString &url);
     void navigateBack();
     void navigateForward();
     void refreshCurrentTab();

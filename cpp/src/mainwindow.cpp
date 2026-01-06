@@ -7,6 +7,7 @@
 #include <QWebEnginePage>
 #include <QWebEngineSettings>
 #include <QWebEngineHistory>
+#include <QWebEngineNewWindowRequest>
 #include <QHostAddress>
 #include <QMessageBox>
 #include <QApplication>
@@ -388,10 +389,10 @@ void MainWindow::onLoadProgress(int progress)
     updateStatus(QString("正在加载... %1%").arg(progress));
 }
 
-void MainWindow::onNewWindowRequested(QWebEnginePage *page)
+void MainWindow::onNewWindowRequested(QWebEngineNewWindowRequest &request)
 {
     // 在新标签页中打开
-    createNewTab(page->requestedUrl().toString());
+    createNewTab(request.requestedUrl().toString());
 }
 
 void MainWindow::navigateToUrl(const QString &url)
