@@ -34,7 +34,7 @@ jobs:
       uses: jurplel/install-qt-action@v4
       with:
         version: '6.5.3'  # 使用稳定的 Qt 6.5.x 版本
-        modules: 'qtwebengine'
+        modules: 'qtwebengine qtwebchannel'
         cache: true  # 加速后续构建
 
     - name: Install CMake
