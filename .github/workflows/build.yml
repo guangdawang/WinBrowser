@@ -31,8 +31,8 @@ jobs:
 
           aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt
 
-          # 补上 qtconcurrent
-          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats qtconcurrent
+          # 安装必要的Qt模块
+          aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
 
       - name: Set up Qt Environment
         uses: jurplel/install-qt-action@v4
