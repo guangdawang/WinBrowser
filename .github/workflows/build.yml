@@ -29,9 +29,10 @@ jobs:
         run: |
           pip3 install aqtinstall==3.1.16
 
+          # 第一条：安装基础包
           aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt
 
-          # 安装必要的Qt模块
+          # 第二条：安装 WebEngine 等模块
           aqt install-qt windows desktop 6.5.3 win64_msvc2019_64 -O %GITHUB_WORKSPACE%\Qt --modules qtwebengine qtpositioning qtwebchannel qt5compat qtimageformats
 
       - name: Set up Qt Environment
