@@ -325,7 +325,7 @@ void AddressBar::navigateTo(const QString &url)
         QString searchUrl = QString("https://www.bing.com/search?q=%1")
             .arg(QString::fromUtf8(QUrl::toPercentEncoding(url)));
         emit searchRequested(url);
-        navigateRequested.emit(searchUrl);
+        emit navigateRequested(searchUrl);
     }
     hideSuggestions();
 }
