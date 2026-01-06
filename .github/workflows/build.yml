@@ -2,12 +2,12 @@ name: Build WinBrowserQt
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
     tags:
-      - 'v*'
+      - "v*"
   pull_request:
-    branches: [ main ]
-  workflow_dispatch:  # 允许手动触发
+    branches: [main]
+  workflow_dispatch: # 允许手动触发
 
 jobs:
   build:
@@ -27,62 +27,62 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: '6.5.3'  # 使用稳定的 Qt 6.5.x 版本
-        modules: 'qtwebengine qtwebchannel qtnetworkauth'
-        host: 'linux'
-        target: 'desktop'
-        cache: true  # 加速后续构建
+      - name: Set up Qt
+        uses: jurplel/install-qt-action@v4
+        with:
+          version: "6.5.3" # 使用稳定的 Qt 6.5.x 版本
+          modules: "qtwebengine qtwebchannel qtnetworkauth"
+          host: "linux"
+          target: "desktop"
+          cache: true # 加速后续构建
 
-    - name: Install CMake
-      uses: jwlawson/actions-setup-cmake@v2
-      with:
-        cmake-version: '3.27.x'
+      - name: Install CMake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: "3.27.x"
 
-    - name: Install dependencies (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential libgl1-mesa-dev
+      - name: Install dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libgl1-mesa-dev
 
-    - name: Configure CMake
-      run: |
-        mkdir build
-        cd build
-        cmake ../cpp -DCMAKE_BUILD_TYPE=Release
+      - name: Configure CMake
+        run: |
+          mkdir build
+          cd build
+          cmake ../cpp -DCMAKE_BUILD_TYPE=Release
 
-    - name: Build
-      run: |
-        cd build
-        ${{ matrix.build-cmd }}
+      - name: Build
+        run: |
+          cd build
+          ${{ matrix.build-cmd }}
 
-    - name: Package artifacts (Windows)
-      if: runner.os == 'Windows'
-      run: |
-        cd build/Release
-        7z a ../WinBrowserQt-Windows.zip *
-        mv ../WinBrowserQt-Windows.zip ../
+      - name: Package artifacts (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          cd build/Release
+          7z a ../WinBrowserQt-Windows.zip *
+          mv ../WinBrowserQt-Windows.zip ../
 
-    - name: Package artifacts (Linux/macOS)
-      if: runner.os != 'Windows'
-      run: |
-        cd build
-        tar -czf WinBrowserQt-${{ runner.os }}.tar.gz WinBrowserQt*
-        mv WinBrowserQt-${{ runner.os }}.tar.gz ../
+      - name: Package artifacts (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          cd build
+          tar -czf WinBrowserQt-${{ runner.os }}.tar.gz WinBrowserQt*
+          mv WinBrowserQt-${{ runner.os }}.tar.gz ../
 
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: ${{ matrix.artifact-name }}
-        path: |
-          build/WinBrowserQt-*
-          build/WinBrowserQt*.zip
-        retention-days: 30
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: |
+            build/WinBrowserQt-*
+            build/WinBrowserQt*.zip
+          retention-days: 30
 
   release:
     needs: build
@@ -92,20 +92,20 @@ jobs:
       contents: write
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Download all artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: ./artifacts
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
 
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: ./artifacts/**/*.zip ./artifacts/**/*.tar.gz
-        generate_release_notes: true
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./artifacts/**/*.zip ./artifacts/**/*.tar.gz
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
