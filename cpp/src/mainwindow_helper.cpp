@@ -2,6 +2,8 @@
 #include "mainwindow.h"
 #include <QHostAddress>
 #include <QNetworkInterface>
+#include <QWebEnginePage>
+#include <QWebEngineHistory>
 
 namespace WinBrowserQt {
 
