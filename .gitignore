@@ -39,3 +39,10 @@ Makefile
 
 # Logs
 *.log
+
+# Release packages
+publish_package/
+*.zip
+
+# Downloaded files
+WinBrowserQt-Windows/
