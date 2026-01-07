@@ -73,10 +73,13 @@ jobs:
 
       - name: Package artifacts (Windows)
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          cd build/Release
+          New-Item -ItemType Directory -Force -Path ./publish_package
+          Copy-Item -Path "build/Release/*" -Destination "./publish_package/" -Recurse
+          cd ./publish_package
           7z a ../WinBrowserQt-Windows.zip *
-          mv ../WinBrowserQt-Windows.zip ../
+          cd ..
 
       - name: Package artifacts (Linux/macOS)
         if: runner.os != 'Windows'
