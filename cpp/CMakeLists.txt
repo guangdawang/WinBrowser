@@ -25,6 +25,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Gui Widgets WebEngineWidgets WebEngine
 set(SOURCES
     src/main.cpp
     src/mainwindow.cpp
+    src/mainwindow_helper.cpp
     src/addressbar.cpp
     src/browsertabwidget.cpp
     src/navigationmanager.cpp

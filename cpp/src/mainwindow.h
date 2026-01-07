@@ -6,6 +6,7 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QAction>
+#include <QHostAddress>
 #include "addressbar.h"
 #include "browsertabwidget.h"
 #include "navigationmanager.h"
