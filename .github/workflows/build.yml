@@ -92,9 +92,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact-name }}
-          path: |
-            build/WinBrowserQt-*
-            build/WinBrowserQt*.zip
+          # 修改点1：只上传我们打包好的 zip 文件，不再使用通配符
+          path: WinBrowserQt-Windows.zip
           retention-days: 30
 
   release:
@@ -113,10 +112,17 @@ jobs:
         with:
           path: ./artifacts
 
+      # 修改点2：新增步骤，把 zip 文件从子文件夹里提出来，消除嵌套
+      - name: Flatten Artifacts Structure
+        run: |
+          find ./artifacts -type f -name "*.zip" -exec mv {} ./artifacts/ \;
+          find ./artifacts -type d -empty -delete
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./artifacts/**/*.zip ./artifacts/**/*.tar.gz
+          # 修改点3：指定读取扁平化后的 zip 文件
+          files: ./artifacts/*.zip
           generate_release_notes: true
           draft: false
           prerelease: false
